@@ -14,9 +14,9 @@ server_socket.listen(1)
 while True:
     print("Waiting for a connection...")
     connection, client_address = server_socket.accept()
-    try:
-        print(f"Connection from {client_address}")
+    print(f"Connection attempt from {client_address}")
 
+    try:
         # Receive the data in small chunks
         while True:
             data = connection.recv(1024)
@@ -24,7 +24,8 @@ while True:
                 print(f"Received: {data.decode('utf-8')}")
             else:
                 break
+    except Exception as e:
+        print(f"Error: {e}")
     finally:
-        # Clean up the connection
         connection.close()
         print("Connection closed.")
